@@ -1,0 +1,69 @@
+using System;
+using System.Threading;
+
+namespace Факториал
+{
+    class Program
+    {
+        static void Main()
+        {
+            try
+            {
+                Console.Write("Введите целое натуральное число (Факториал от 20 считается приблизительно):\t");
+                uint n = uint.Parse(Console.ReadLine());
+                string nn = n.ToString();
+                int chN = nn.Length;
+                string fact = factorial(n).ToString();
+                int chF = fact.Length;
+                int ch = chN + chF + 35;
+                while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Enter))
+                {
+                    Console.Clear();
+                    if (Console.ForegroundColor == ConsoleColor.White)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.BackgroundColor = ConsoleColor.White;
+
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
+                    Console.WriteLine("+{0}+", "".PadRight(ch, '='));
+                    Console.WriteLine("|| Факториал числа {0}! будет равен: {1} ||", n, factorial(n));
+                    Console.WriteLine("+{0}+", "".PadRight(ch, '='));
+
+                    Thread.Sleep(500);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка, введите целое положительное число!");
+                Console.ReadKey();
+                Console.Clear();
+                Main();
+            }
+            Console.WriteLine("Хотите поиграть ещё? 0 - нет , 1 - да");
+            int d = int.Parse(Console.ReadLine());
+            switch (d)
+            {
+                case 1:
+                    Console.Clear();
+                    Main();
+                    break;
+                case 0:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine("Спасибо, что использовали мою программу! :)");
+                    Console.ReadKey();
+                    break;
+            }
+            static ulong factorial(uint n)
+            {
+                if (n >= 2) return n * factorial(n - 1);
+                return 1;
+            }
+        }
+    }
+}
